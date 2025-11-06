@@ -57,9 +57,11 @@ export const RadarChartComponent: React.FC = () => {
   return (
     <div style={{ width: "100%", height: 450 }}>
       <ResponsiveContainer>
-        {/* @ts-ignore */}
+        {/* @ts-expect-error Recharts type issue */}
         <RadarChart data={radarData}>
+          {/* @ts-expect-error Recharts type issue */}
           <PolarGrid stroke="#444" />
+          {/* @ts-expect-error Recharts type issue */}
           <PolarAngleAxis
             dataKey="subject"
             stroke="#ccc"
@@ -81,7 +83,9 @@ export const RadarChartComponent: React.FC = () => {
               );
             }}
           />
+          {/* @ts-expect-error Recharts type issue */}
           <PolarRadiusAxis angle={30} domain={[0, 1]} />
+          {/* @ts-expect-error Recharts type issue */}
           <Radar
             name="Skill"
             dataKey="A"
@@ -89,6 +93,7 @@ export const RadarChartComponent: React.FC = () => {
             fill="#8884d8"
             fillOpacity={0.6}
           />
+          {/* @ts-expect-error Recharts type issue */}
           <Tooltip content={<CustomRadarTooltip />} />
         </RadarChart>
       </ResponsiveContainer>
