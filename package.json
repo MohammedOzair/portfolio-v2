@@ -12,8 +12,6 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
-    "@types/react": "^17.0.20",
-    "@types/react-dom": "^17.0.9",
     "@vercel/analytics": "^1.4.1",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
@@ -67,7 +65,9 @@
   "devDependencies": {
     "@studio-freight/lenis": "^1.0.42",
     "@types/aos": "^3.0.7",
+    "@types/react": "^19.2.2",
     "@types/react-animate-on-scroll": "^2.1.5",
+    "@types/react-dom": "^19.2.2",
     "@types/react-google-recaptcha": "^2.1.2",
     "@types/react-router-hash-link": "^2.4.4",
     "@types/react-slick": "^0.23.13",
