@@ -25,7 +25,7 @@ const radarData = [
   { subject: "PLO12", A: 1.0, name: "Lifelong Learning" },
 ];
 
-// ✅ Custom Tooltip Box
+// Custom Tooltip Box
 const CustomRadarTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
@@ -52,24 +52,7 @@ const CustomRadarTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-const CustomTick = ({ payload, x, y, textAnchor }: any) => {
-  return (
-    <text
-      x={x}
-      y={y}
-      textAnchor={textAnchor}
-      fill="#fff"
-      fontSize={14}
-      fontWeight="bold"
-      dy={8}
-      dx={0}
-    >
-      {payload.value}
-    </text>
-  );
-};
-
-// ✅ Main Component
+// Main Component
 export const RadarChartComponent: React.FC = () => {
   return (
     <div style={{ width: "100%", height: 450 }}>
@@ -79,7 +62,23 @@ export const RadarChartComponent: React.FC = () => {
           <PolarAngleAxis
             dataKey="subject"
             stroke="#ccc"
-            tick={<CustomTick />}
+            tick={(props: any) => {
+              const { payload, x, y, textAnchor } = props;
+              return (
+                <text
+                  x={x}
+                  y={y}
+                  textAnchor={textAnchor}
+                  fill="#fff"
+                  fontSize={14}
+                  fontWeight="bold"
+                  dy={8}
+                  dx={0}
+                >
+                  {payload.value}
+                </text>
+              );
+            }}
           />
           <PolarRadiusAxis angle={30} domain={[0, 1]} />
           <Radar
