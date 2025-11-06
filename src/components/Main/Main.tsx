@@ -8,7 +8,6 @@ import { Contact } from "../Contact/Contact";
 import { Project } from "../Project/Project";
 import { Certifications } from "../Certifications/certifications";
 import { Skills } from "../Skills/Skills";
-import { Plos } from "../plos/plos";
 import { SWOT } from "../Swot/Swot";
 
 export function Main() {
@@ -21,7 +20,6 @@ export function Main() {
       <Certifications></Certifications>
       <Skills></Skills>
       <Project></Project>
-      <Plos></Plos>
       <SWOT></SWOT>
       <Contact></Contact>
     </Container>
