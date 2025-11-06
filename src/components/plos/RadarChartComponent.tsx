@@ -57,6 +57,7 @@ export const RadarChartComponent: React.FC = () => {
   return (
     <div style={{ width: "100%", height: 450 }}>
       <ResponsiveContainer>
+        {/* @ts-ignore */}
         <RadarChart data={radarData}>
           <PolarGrid stroke="#444" />
           <PolarAngleAxis
