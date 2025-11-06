@@ -69,36 +69,26 @@ const CustomTick = ({ payload, x, y, textAnchor }: any) => {
   );
 };
 
-
 // ✅ Main Component
 export const RadarChartComponent: React.FC = () => {
   return (
     <div style={{ width: "100%", height: 450 }}>
       <ResponsiveContainer>
-        {/* @ts-expect-error Recharts type issue */}
         <RadarChart data={radarData}>
           <PolarGrid stroke="#444" />
-
-          {/* @ts-expect-error Recharts type issue */}
-          <PolarAngleAxis dataKey="subject" stroke="#ccc" tick={<CustomTick />} />
-          {/* @ts-expect-error Recharts type issue */}
-          <PolarRadiusAxis
-            angle={30}
-            domain={[0, 1]}
-            stroke="#666"
-            tick={false}
+          <PolarAngleAxis
+            dataKey="subject"
+            stroke="#ccc"
+            tick={<CustomTick />}
           />
-
-          {/* @ts-expect-error Recharts type issue */}
+          <PolarRadiusAxis angle={30} domain={[0, 1]} />
           <Radar
             name="Skill"
             dataKey="A"
-            stroke="#c5ff41"
-            fill="#c5ff41"
-            fillOpacity={0.4}
+            stroke="#8884d8"
+            fill="#8884d8"
+            fillOpacity={0.6}
           />
-
-          {/* @ts-expect-error Recharts type issue */}
           <Tooltip content={<CustomRadarTooltip />} />
         </RadarChart>
       </ResponsiveContainer>
