@@ -1,7 +1,13 @@
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Container, FullWidthWrapper, ProjectCard } from "./styles";
-import ScrollAnimation from "react-animate-on-scroll";
 
 export function Project() {
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   const projects = [
     {
       title: "E-Commerce Platform",
@@ -53,35 +59,33 @@ export function Project() {
         </header>
 
         {projects.map((proj, idx) => (
-          <ScrollAnimation animateIn="fadeInUp" delay={0.2 * 1000}>
-            <ProjectCard key={idx}>
-              <div className="icon">
-                <svg
-                  width="50"
-                  xmlns="http://www.w3.org/2000/svg"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#c5ff41ff"
-                  strokeWidth="1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <title>Folder</title>
-                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                </svg>
-              </div>
-              <div className="content">
-                <h3>{proj.title}</h3>
-                <p>{proj.description}</p>
-                <ul className="tech-list">
-                  {proj.tech.map((t, i) => (
-                    <li key={i}>{t}</li>
-                  ))}
-                </ul>
-              </div>
-            </ProjectCard>
-          </ScrollAnimation>
+          <ProjectCard key={idx} data-aos="fade-up" data-aos-delay={idx * 100}>
+            <div className="icon">
+              <svg
+                width="50"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#c5ff41ff"
+                strokeWidth="1"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <title>Folder</title>
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <div className="content">
+              <h3>{proj.title}</h3>
+              <p>{proj.description}</p>
+              <ul className="tech-list">
+                {proj.tech.map((t, i) => (
+                  <li key={i}>{t}</li>
+                ))}
+              </ul>
+            </div>
+          </ProjectCard>
         ))}
       </Container>
     </FullWidthWrapper>

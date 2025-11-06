@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import {
   Container,
   Grid,
@@ -7,7 +10,6 @@ import {
   Content,
   FullWidthWrapper,
 } from "./styles";
-import ScrollAnimation from "react-animate-on-scroll";
 
 const swotData = [
   {
@@ -54,32 +56,41 @@ const swotData = [
 ];
 
 export const SWOT: React.FC = () => {
+  // Initialize AOS once on mount
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true, easing: "ease-out" });
+  }, []);
+
   return (
     <FullWidthWrapper>
       <Container id="swot">
         <header>
-          <h1>SWOT Analysis</h1>
+          <h1 data-aos="fade-up">SWOT Analysis</h1>
         </header>
+
         <Grid>
-          {swotData.map(({ title, content, color }) => (
-            <ScrollAnimation key={title} animateIn="fadeInUp" delay={0.2 * 1000}>
-              <Card color={color}>
-                <Title>{title}</Title>
-                <Content>
-                  <ul>
-                    {content.map((item, idx) => {
-                      const [heading, ...rest] = item.split(" - ");
-                      return (
-                        <li key={idx}>
-                          <strong>{heading}</strong>
-                          {rest.length > 0 && ` - ${rest.join(" - ")}`}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </Content>
-              </Card>
-            </ScrollAnimation>
+          {swotData.map(({ title, content, color }, index) => (
+            <Card
+              key={title}
+              color={color}
+              data-aos="fade-up"
+              data-aos-delay={index * 150}
+            >
+              <Title>{title}</Title>
+              <Content>
+                <ul>
+                  {content.map((item, idx) => {
+                    const [heading, ...rest] = item.split(" - ");
+                    return (
+                      <li key={idx}>
+                        <strong>{heading}</strong>
+                        {rest.length > 0 && ` - ${rest.join(" - ")}`}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </Content>
+            </Card>
           ))}
         </Grid>
       </Container>

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import ScrollAnimation from "react-animate-on-scroll";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import {
   Container,
   ContentWrapper,
@@ -44,7 +46,7 @@ interface SkillCategory {
 
 type ViewType = "overview" | "detailed";
 
-// Core/Featured skills for the marquee (keep it focused)
+// Core marquee skills
 const coreSkills: Skill[] = [
   {
     name: "JavaScript",
@@ -176,6 +178,12 @@ export const Skills: React.FC = () => {
   const isPlayingRef = useRef<boolean>(true);
   const [activeView, setActiveView] = useState<ViewType>("overview");
 
+  // AOS initialization
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
+
+  // Continuous marquee scroll effect
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -185,14 +193,12 @@ export const Skills: React.FC = () => {
       scrollPosRef.current -= 0.5;
       track.style.transform = `translateX(${scrollPosRef.current}px)`;
 
-      // Reset scroll position for loop
       if (Math.abs(scrollPosRef.current) >= track.scrollWidth / 2) {
         scrollPosRef.current = 0;
       }
       animationRef.current = requestAnimationFrame(scroll);
     };
 
-    // Pause on hover
     const handleMouseEnter = (): void => {
       isPlayingRef.current = false;
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
@@ -205,7 +211,6 @@ export const Skills: React.FC = () => {
 
     track.addEventListener("mouseenter", handleMouseEnter);
     track.addEventListener("mouseleave", handleMouseLeave);
-
     scroll();
 
     return () => {
@@ -219,12 +224,10 @@ export const Skills: React.FC = () => {
     <FullWidthWrapper>
       <Container id="skills">
         <ContentWrapper>
-          {/* Header */}
           <Header>
             <h1>Skills</h1>
           </Header>
 
-          {/* View Toggle */}
           <ViewToggle>
             <ToggleContainer>
               <ToggleButton
@@ -244,11 +247,8 @@ export const Skills: React.FC = () => {
 
           {activeView === "overview" && (
             <>
-              {/* Featured Skills Marquee */}
               <MarqueeSection>
-                <ScrollAnimation animateIn="fadeInUp" delay={200}>
-                  <h2>Core Technologies</h2>
-                </ScrollAnimation>
+                <h2 data-aos="fade-up">Core Technologies</h2>
 
                 <MarqueeContainer>
                   <MarqueeMaskLeft />
@@ -256,22 +256,23 @@ export const Skills: React.FC = () => {
                   <MarqueeTrack ref={trackRef}>
                     <LogoSlide>
                       {repeatedCoreSkills.map((skill, idx) => (
-                        <ScrollAnimation animateIn="fadeInUp" delay={400}>
-                          <LogoWrapper key={idx}>
-                            <LogoContainer>
-                              <LogoImage src={skill.src} alt={skill.name} />
-                            </LogoContainer>
-                            <LogoText>{skill.name}</LogoText>
-                          </LogoWrapper>
-                        </ScrollAnimation>
+                        <LogoWrapper
+                          key={idx}
+                          data-aos="fade-up"
+                          data-aos-delay={100 + idx * 50}
+                        >
+                          <LogoContainer>
+                            <LogoImage src={skill.src} alt={skill.name} />
+                          </LogoContainer>
+                          <LogoText>{skill.name}</LogoText>
+                        </LogoWrapper>
                       ))}
                     </LogoSlide>
                   </MarqueeTrack>
                 </MarqueeContainer>
               </MarqueeSection>
 
-              {/* Quick Category Grid */}
-              <ScrollAnimation animateIn="fadeInUp" delay={200}>
+              <div data-aos="fade-up">
                 <CategoryGrid>
                   {Object.entries(skillCategories).map(([category, data]) => (
                     <CategoryCard key={category}>
@@ -281,61 +282,54 @@ export const Skills: React.FC = () => {
                     </CategoryCard>
                   ))}
                 </CategoryGrid>
-              </ScrollAnimation>
+              </div>
             </>
           )}
 
           {activeView === "detailed" && (
             <DetailedContainer>
               {Object.entries(skillCategories).map(([category, data]) => (
-                <ScrollAnimation animateIn="fadeInUp" delay={200}>
-                  <DetailedCategory key={category}>
-                    <CategoryHeader>
-                      <span>{data.icon}</span>
-                      <h3>{category}</h3>
-                    </CategoryHeader>
-                    <SkillsGrid>
-                      {data.skills.map((skill, idx) => (
-                        <SkillTag key={idx}>
-                          <span>{skill}</span>
-                        </SkillTag>
-                      ))}
-                    </SkillsGrid>
-                  </DetailedCategory>
-                </ScrollAnimation>
+                <DetailedCategory
+                  key={category}
+                  data-aos="fade-up"
+                  data-aos-delay="150"
+                >
+                  <CategoryHeader>
+                    <span>{data.icon}</span>
+                    <h3>{category}</h3>
+                  </CategoryHeader>
+                  <SkillsGrid>
+                    {data.skills.map((skill, idx) => (
+                      <SkillTag key={idx}>
+                        <span>{skill}</span>
+                      </SkillTag>
+                    ))}
+                  </SkillsGrid>
+                </DetailedCategory>
               ))}
             </DetailedContainer>
           )}
 
-          {/* Stats Section */}
           <StatsSection>
-            <ScrollAnimation animateIn="fadeInUp" delay={200}>
-              <StatCard>
-                <StatNumber variant="green">9</StatNumber>
-                <StatLabel>Languages</StatLabel>
-              </StatCard>
-            </ScrollAnimation>
+            <StatCard data-aos="fade-up">
+              <StatNumber variant="green">9</StatNumber>
+              <StatLabel>Languages</StatLabel>
+            </StatCard>
 
-            <ScrollAnimation animateIn="fadeInUp" delay={200}>
-              <StatCard>
-                <StatNumber variant="purple">15+</StatNumber>
-                <StatLabel>Frameworks</StatLabel>
-              </StatCard>
-            </ScrollAnimation>
+            <StatCard data-aos="fade-up" data-aos-delay="100">
+              <StatNumber variant="purple">15+</StatNumber>
+              <StatLabel>Frameworks</StatLabel>
+            </StatCard>
 
-            <ScrollAnimation animateIn="fadeInUp" delay={200}>
-              <StatCard>
-                <StatNumber variant="blue">8</StatNumber>
-                <StatLabel>DevOps Tools</StatLabel>
-              </StatCard>
-            </ScrollAnimation>
+            <StatCard data-aos="fade-up" data-aos-delay="200">
+              <StatNumber variant="blue">8</StatNumber>
+              <StatLabel>DevOps Tools</StatLabel>
+            </StatCard>
 
-            <ScrollAnimation animateIn="fadeInUp" delay={200}>
-              <StatCard>
-                <StatNumber variant="orange">60+</StatNumber>
-                <StatLabel>Total Skills</StatLabel>
-              </StatCard>
-            </ScrollAnimation>
+            <StatCard data-aos="fade-up" data-aos-delay="300">
+              <StatNumber variant="orange">60+</StatNumber>
+              <StatLabel>Total Skills</StatLabel>
+            </StatCard>
           </StatsSection>
         </ContentWrapper>
       </Container>
