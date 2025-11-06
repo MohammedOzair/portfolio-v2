@@ -8,6 +8,8 @@ import { Loader } from "./components/loader/loader";
 import { SmoothScroll } from "./components/smoothScroll"; // ✅ Import here
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/global";
+import 'animate.css/animate.min.css';
+
 
 function App() {
   useEffect(() => {
