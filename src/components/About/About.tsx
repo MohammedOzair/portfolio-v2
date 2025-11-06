@@ -13,7 +13,7 @@ export function About() {
       <Container>
         <div className="about-image" data-aos="fade-right">
           <img
-            src="/images/ozair.jpeg"
+            src="public/images/ozair.jpeg"
             alt="Developer workspace"
           />
         </div>
