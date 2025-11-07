@@ -2,6 +2,7 @@ import { Container, FullWidthWrapper } from "./styles";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import ozairImage from "../../../public/images/ozair.png"
 
 export function About() {
   useEffect(() => {
@@ -13,7 +14,7 @@ export function About() {
       <Container>
         <div className="about-image" data-aos="fade-right">
           <img
-            src="../../assets/ozair.jpeg"
+            src={ozairImage}
             alt="Developer workspace"
           />
         </div>
