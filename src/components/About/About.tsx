@@ -2,7 +2,7 @@ import { Container, FullWidthWrapper } from "./styles";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import ozairImage from "../../../public/images/ozair.png"
+import ozairImage from "../../assets/ozair.png"
 
 export function About() {
   useEffect(() => {
